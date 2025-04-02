@@ -291,6 +291,23 @@ class ScriptGenerator:
             print(f"Error generating segment '{segment_name}': {e}")
             return ""
 
+    def clean_filename(self, filename):
+        """
+        Clean a filename by removing extension and special characters.
+        
+        Args:
+            filename (str): Original filename
+            
+        Returns:
+            str: Cleaned filename
+        """
+        # Remove extension and clean up
+        name = filename.replace('.pdf', '')
+        # Keep only alphanumeric characters and spaces
+        name = ''.join(c for c in name if c.isalnum() or c.isspace())
+        # Replace spaces with underscores
+        return name.replace(' ', '_')
+
     def generate_full_script(self, pdf_path):
         """
         Generate the complete podcast script in segments.
@@ -318,27 +335,25 @@ class ScriptGenerator:
                 info["words"],
                 pdf_content,
                 conversation_history,
-                pdf_path  # Pass the pdf_path to generate_segment
+                pdf_path
             )
             
             end_time = time.time()
-            generation_time = end_time - start_time
-            print(f"Segment '{segment_name}' generated in {generation_time:.2f} seconds")
+            print(f"Segment '{segment_name}' generated in {end_time - start_time:.2f} seconds")
             
-            # Update conversation history for coherence
+            # Update conversation history and script
             conversation_history += "\n" + self.extract_last_words(segment_content)
-            
-            # Append the generated segment to the complete script without the header
             complete_script += f"\n\n{segment_content}\n"
             
             # Add a delay to avoid hitting rate limits
             time.sleep(3)
         
-        # Determine first speaker from the intro segment
+        # Determine first speaker and create output filename
         first_speaker = "Vic" if "I'm Vic" in complete_script else "Alex"
+        pdf_name = self.clean_filename(os.path.basename(pdf_path))
+        output_path = f"scripts/{pdf_name}_{first_speaker}_first.txt"
         
-        # Save the complete script with first speaker in filename
-        output_path = f"scripts/generated_script_chunked_{first_speaker}_first.txt"
+        # Save the complete script
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(complete_script)
         
