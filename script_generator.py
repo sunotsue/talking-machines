@@ -1,14 +1,17 @@
 import os
+import time
 from dotenv import load_dotenv
 from openai import OpenAI
 from PyPDF2 import PdfReader
-import time
 
 # Load environment variables
 load_dotenv()
 
 class ScriptGenerator:
+    """A class to generate podcast scripts from academic papers using GPT-4."""
+    
     def __init__(self):
+        """Initialize the ScriptGenerator with OpenAI client and system prompt."""
         # Initialize OpenAI client
         api_key = os.getenv('OPENAI_API_KEY')
         if not api_key:
@@ -86,9 +89,16 @@ class ScriptGenerator:
             }
         }
 
-
     def extract_text_from_pdf(self, pdf_path):
-        """Extract text content from a PDF file."""
+        """
+        Extract text content from a PDF file.
+        
+        Args:
+            pdf_path (str): Path to the PDF file
+            
+        Returns:
+            str: Extracted text content from the PDF
+        """
         reader = PdfReader(pdf_path)
         text = ""
         for page in reader.pages:
@@ -96,14 +106,31 @@ class ScriptGenerator:
         return text
 
     def extract_last_words(self, text, num_words=200):
-        """Extract the last N words to provide context continuity."""
+        """
+        Extract the last N words to provide context continuity.
+        
+        Args:
+            text (str): The text to extract from
+            num_words (int): Number of words to extract
+            
+        Returns:
+            str: The last N words of the text
+        """
         words = text.split()
         if len(words) <= num_words:
             return text
         return ' '.join(words[-num_words:])
 
     def extract_topic_from_filename(self, pdf_path):
-        """Extract the topic from the PDF filename."""
+        """
+        Extract the topic from the PDF filename.
+        
+        Args:
+            pdf_path (str): Path to the PDF file
+            
+        Returns:
+            str: The extracted topic from the filename
+        """
         # Get just the filename without extension and directory
         filename = os.path.basename(pdf_path)
         # Remove the .pdf extension
@@ -115,7 +142,15 @@ class ScriptGenerator:
         return filename
 
     def split_pdf_content(self, pdf_content):
-        """Split the PDF content into two roughly equal parts."""
+        """
+        Split the PDF content into two roughly equal parts.
+        
+        Args:
+            pdf_content (str): The full PDF content
+            
+        Returns:
+            tuple: (first_half, second_half) of the PDF content
+        """
         # Split the content into paragraphs
         paragraphs = pdf_content.split('\n\n')
         
@@ -129,7 +164,19 @@ class ScriptGenerator:
         return first_half, second_half
 
     def generate_segment(self, segment_name, word_count, pdf_content, conversation_history="", pdf_path=""):
-        """Generate a specific segment of the podcast script."""
+        """
+        Generate a specific segment of the podcast script.
+        
+        Args:
+            segment_name (str): Name of the segment to generate
+            word_count (int): Target word count for the segment
+            pdf_content (str): Content of the PDF
+            conversation_history (str): Previous conversation for context
+            pdf_path (str): Path to the PDF file
+            
+        Returns:
+            str: Generated segment content
+        """
         segment_info = self.segments[segment_name]
         
         if segment_name == "Introduction & Setup":
@@ -245,7 +292,15 @@ class ScriptGenerator:
             return ""
 
     def generate_full_script(self, pdf_path):
-        """Generate the complete podcast script in segments."""
+        """
+        Generate the complete podcast script in segments.
+        
+        Args:
+            pdf_path (str): Path to the PDF file
+            
+        Returns:
+            tuple: (complete_script, output_path)
+        """
         # Extract text from PDF
         pdf_content = self.extract_text_from_pdf(pdf_path)
         
@@ -290,6 +345,7 @@ class ScriptGenerator:
         return complete_script, output_path
 
 def main():
+    """Main function to generate a podcast script from a PDF file."""
     generator = ScriptGenerator()
     pdf_path = "pdfs/3. Anthropic_On the Biology of a Large Language Model.pdf"
     

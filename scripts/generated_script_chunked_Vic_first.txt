@@ -1,12 +1,8 @@
-
-
-### Introduction & Setup
-
 Welcome to "Talking Machines by Su Park," the podcast where we talk machines, the bots, and the hottest AI papers off the press, to demystify the world of artificial intelligence research!!! I'm Vic, and with me today is my lovely co-host, Alex.
 
 Today, we’re diving into a fascinating paper titled "On the Biology of a Large Language Model." It’s like a backstage pass to the inner workings of Claude 3.5 Haiku, Anthropic’s latest lightweight production model.
 
-Oh wow, that title sounds like it could be a biology class or a sci-fi movie!
+Oh wow, that title sounds like it could be a biology class or a sci-fi!
 
 Right? But the paper aims to reverse-engineer the internal mechanisms of these large language models. You know, the ones that seem to have impressive capabilities but often act like a black box. The researchers want to shed light on how these models work, especially since they’re being deployed in more and more applications. 
 
@@ -32,8 +28,6 @@ Exactly! It raises a lot of questions about how we interact with these models an
 
 I can’t wait to dive deeper into these findings! What’s next on the agenda?
 
-
-### Key Concepts Part 1
 
 I’m really excited to dive into how the paper sets the stage for these findings. The introduction does a great job of outlining the motivation behind the research. 
 
@@ -135,9 +129,6 @@ Exactly! And as we continue to explore these concepts, I think we’ll uncover e
 
 I can’t wait! There’s so much to unpack, and I’m here for it all.
 
-
-### Key Concepts Part 2
-
 It's fascinating how the model can use features that represent language-agnostic concepts while also having language-specific components. This seems to suggest that Claude 3.5 Haiku isn't just a one-trick pony; it's capable of understanding and generating across various contexts. 
 
 Absolutely! The multilingual circuits they discovered show that even as it generates text in different languages, the underlying logic and reasoning can still be shared. It’s almost like it has a universal translator built into its brain, which is pretty mind-blowing when you think about it. 
@@ -187,9 +178,6 @@ I couldn't agree more! There's so much to look forward to, and it’s thrilling 
 And who knows? Maybe one day, we’ll have a model that can not only assist us but also inspire us in ways we can’t yet imagine. 
 
 Now that’s a future I’d love to see!
-
-
-### Closing
 
 It’s fascinating how these models can exhibit such complex behaviors, right? 
 
