@@ -78,8 +78,7 @@ class EpisodeMetadataGenerator:
         """Generate a catchy and informative title for the episode."""
         prompt = f"""
         Generate a podcast episode title based on the podcast script.
-        The title should be catchy, clear to a general AI-interested audience, and capture the central idea 
-        that language models begin to reflect and correct themselves earlier than expected — even during pretraining. 
+        The title should be catchy, clear to a general AI-interested audience, and capture the central idea of the episode.
         Aim for a balance between intrigue and clarity, like something you'd see on a popular AI podcast.
         
         Hosts: {host_names[0]} and {host_names[1]}

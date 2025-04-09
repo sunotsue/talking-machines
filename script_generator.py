@@ -3,6 +3,7 @@ import time
 from dotenv import load_dotenv
 from openai import OpenAI
 from PyPDF2 import PdfReader
+import random
 
 # Load environment variables
 load_dotenv()
@@ -180,11 +181,16 @@ class ScriptGenerator:
         segment_info = self.segments[segment_name]
         
         if segment_name == "Introduction & Setup":
+            # Randomly select the first speaker
+            first_speaker = random.choice(["Vic", "Alex"])
+            second_speaker = "Alex" if first_speaker == "Vic" else "Vic"
+            
             user_message = f"""Write a lively, engaging introduction to the podcast. Include:
-            1. The exact intro line combined with host introductions in a single line. Here's an example: "Welcome to 'Talking Machines by Su Park' the podcast where we talk machines, the bots, and the hottest AI papers off the press, to demystify the world of artificial intelligence research!!! I'm [Host Name], and with me today is my lovely co-host, [Other Host Name]."
+            1. The exact intro line combined with host introductions in a single line. Here's an example: "Welcome to 'Talking Machines by Su Park' the podcast where we talk machines, the bots, and the hottest AI papers off the press, to demystify the world of artificial intelligence research!!! I'm {first_speaker}, and with me today is my lovely co-host, {second_speaker}."
             2. Then, focus on the main thesis of the paper. Extract the key argument or main point from the PDF content and present it in an engaging way.
             3. Keep the tone sophisticated yet engaging, and maintain the natural flow between hosts.
             4. End mid-conversation, ready to flow into the next segment.
+            5. IMPORTANT: Do not have the hosts read off or describe their own character traits or backgrounds. They should not mention their accents, where they're from, or their personality traits. Just have them introduce themselves by name only.
             
             PDF Content:
             {pdf_content}
@@ -212,6 +218,7 @@ class ScriptGenerator:
             4. Do not use phrases like "let's pick up where we left off" or any other meta-commentary about the conversation flow
             5. Allow each host to speak for longer stretches when explaining concepts
             6. Do not switch speakers unnecessarily - let the natural flow of ideas determine when to switch
+            7. IMPORTANT: Do not have the hosts read off or describe their own character traits or backgrounds. They should not mention their accents, where they're from, or their personality traits.
             
             Include sophisticated banter, back-and-forth discussion, and lively conversation.
             Break down complex concepts into clear, professional explanations with natural dialogue flow.
@@ -240,6 +247,7 @@ class ScriptGenerator:
             4. Do not use phrases like "let's pick up where we left off" or any other meta-commentary about the conversation flow
             5. Allow each host to speak for longer stretches when explaining concepts
             6. Do not switch speakers unnecessarily - let the natural flow of ideas determine when to switch
+            7. IMPORTANT: Do not have the hosts read off or describe their own character traits or backgrounds. They should not mention their accents, where they're from, or their personality traits.
             
             Include sophisticated banter, back-and-forth discussion, and lively conversation.
             Break down complex concepts into clear explanations with natural dialogue flow.
@@ -268,6 +276,8 @@ class ScriptGenerator:
             End with this exact closing message:
             "Thanks for joining us on Talking Machines today! We hope you enjoyed learning about {topic}. Our goal is not to bore you but fill you in on what's happening in the sci-fi-slowly-becoming-our-reality era we're living in. And today we learned about {topic}.
             Until next time! You can find us on instagram at talking underscore machines underscore podcast."
+            
+            IMPORTANT: Do not have the hosts read off or describe their own character traits or backgrounds. They should not mention their accents, where they're from, or their personality traits.
             
             Format the dialogue naturally, without using speaker labels like 'Vic:' or 'Alex:'. Instead, write each line of dialogue on its own line with a blank line between speakers.
             
