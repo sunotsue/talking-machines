@@ -181,7 +181,7 @@ class ScriptGenerator:
         
         if segment_name == "Introduction & Setup":
             user_message = f"""Write a lively, engaging introduction to the podcast. Include:
-            1. The exact intro line combined with host introductions in a single line. Here's an example: "Welcome to 'Talking Machines by Su Park' the podcast where we talk machines, the bots, and the hottest AI papers off the press, to demystify the world of artificial intelligence research!!! I'm Vic, and with me today is my lovely co-host, Alex."
+            1. The exact intro line combined with host introductions in a single line. Here's an example: "Welcome to 'Talking Machines by Su Park' the podcast where we talk machines, the bots, and the hottest AI papers off the press, to demystify the world of artificial intelligence research!!! I'm [Host Name], and with me today is my lovely co-host, [Other Host Name]."
             2. Then, focus on the main thesis of the paper. Extract the key argument or main point from the PDF content and present it in an engaging way.
             3. Keep the tone sophisticated yet engaging, and maintain the natural flow between hosts.
             4. End mid-conversation, ready to flow into the next segment.
@@ -348,7 +348,7 @@ class ScriptGenerator:
             # Add a delay to avoid hitting rate limits
             time.sleep(3)
         
-        # Determine first speaker and create output filename
+        # Determine first speaker by checking who introduces themselves first
         first_speaker = "Vic" if "I'm Vic" in complete_script else "Alex"
         pdf_name = self.clean_filename(os.path.basename(pdf_path))
         output_path = f"scripts/{pdf_name}_{first_speaker}_first.txt"
@@ -362,7 +362,25 @@ class ScriptGenerator:
 def main():
     """Main function to generate a podcast script from a PDF file."""
     generator = ScriptGenerator()
-    pdf_path = "pdfs/3. Anthropic_On the Biology of a Large Language Model.pdf"
+    
+    # Find the only PDF file in the pdfs directory
+    pdf_dir = "pdfs"
+    if not os.path.exists(pdf_dir):
+        print(f"Error: Directory '{pdf_dir}' not found.")
+        return
+    
+    pdf_files = [f for f in os.listdir(pdf_dir) if f.lower().endswith('.pdf')]
+    
+    if not pdf_files:
+        print(f"Error: No PDF files found in '{pdf_dir}' directory.")
+        return
+    
+    if len(pdf_files) > 1:
+        print(f"Error: Multiple PDF files found in '{pdf_dir}' directory. Please ensure only one PDF file is present.")
+        return
+    
+    pdf_path = os.path.join(pdf_dir, pdf_files[0])
+    print(f"Using PDF file: {pdf_path}")
     
     try:
         script, output_path = generator.generate_full_script(pdf_path)

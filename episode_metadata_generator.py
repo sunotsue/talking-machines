@@ -77,14 +77,14 @@ class EpisodeMetadataGenerator:
     def _generate_title(self, script_content, host_names):
         """Generate a catchy and informative title for the episode."""
         prompt = f"""
-        You are a podcast producer for "Talking Machines by SU PARK" podcast. 
-        Based on the following script excerpt, generate a concise, punchy title for this episode.
-        The title should be 3-6 words long, be immediately engaging, and capture the essence of the episode.
-        Avoid generic phrases and make it specific to the content.
+        Generate a podcast episode title based on the podcast script.
+        The title should be catchy, clear to a general AI-interested audience, and capture the central idea 
+        that language models begin to reflect and correct themselves earlier than expected — even during pretraining. 
+        Aim for a balance between intrigue and clarity, like something you'd see on a popular AI podcast.
         
         Hosts: {host_names[0]} and {host_names[1]}
         
-        Script excerpt:
+        Script excerpt for context:
         {script_content[:1000]}
         
         Title:
@@ -93,7 +93,7 @@ class EpisodeMetadataGenerator:
         response = openai.chat.completions.create(
             model=self.model,
             messages=[
-                {"role": "system", "content": "You are a podcast producer creating punchy, memorable titles."},
+                {"role": "system", "content": "You are a podcast producer creating engaging, clear titles for AI-focused content that balance technical accuracy with accessibility."},
                 {"role": "user", "content": prompt}
             ],
             max_tokens=50,
@@ -164,13 +164,29 @@ def main():
     """Main function to generate episode metadata from a script file."""
     generator = EpisodeMetadataGenerator()
     
-    # Get the script file path from command line arguments or use default
-    script_file_path = sys.argv[1] if len(sys.argv) > 1 else "scripts/generated_script_chunked_Vic_first.txt"
+    # Find the only script file in the scripts directory
+    script_dir = "scripts"
+    if not os.path.exists(script_dir):
+        print(f"Error: Directory '{script_dir}' not found.")
+        return
+    
+    script_files = [f for f in os.listdir(script_dir) if f.endswith('.txt')]
+    
+    if not script_files:
+        print(f"Error: No script files found in '{script_dir}' directory.")
+        return
+    
+    if len(script_files) > 1:
+        print(f"Error: Multiple script files found in '{script_dir}' directory. Please ensure only one script file is present.")
+        return
+    
+    script_file_path = os.path.join(script_dir, script_files[0])
+    print(f"Using script file: {script_file_path}")
     
     # Determine output file path
     output_file = None
-    if len(sys.argv) > 2:
-        output_file = sys.argv[2]
+    if len(sys.argv) > 1:
+        output_file = sys.argv[1]
     else:
         # Create metadata directory if it doesn't exist
         metadata_dir = "metadata"
