@@ -112,6 +112,7 @@ class EpisodeMetadataGenerator:
         - State the main topic clearly
         - Explain its significance
         - Use a direct, engaging tone
+        - Don't make it too rigid though.
         
         Second paragraph:
         - Present 2-3 key insights from the discussion

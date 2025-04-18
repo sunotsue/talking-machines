@@ -1,10 +1,6 @@
 import os
 import sys
-from dotenv import load_dotenv
 from elevenlabs import ElevenLabs, play, save
-
-# Load environment variables
-load_dotenv()
 
 class PodcastGenerator:
     """A class to generate podcast audio from a script using ElevenLabs voices."""
