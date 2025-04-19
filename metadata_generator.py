@@ -106,13 +106,13 @@ class EpisodeMetadataGenerator:
         prompt = f"""
         You are a podcast producer for "Talking Machines by SU PARK" podcast. 
         Based on the following script excerpt and title, generate a clear, concise description in exactly 2 paragraphs.
-        Keep it factual and engaging, without promotional language.
+        Keep it factual and engaging, without promotional language, but make it fun!!! It's a podcast after all!!
         
         First paragraph:
         - State the main topic clearly
         - Explain its significance
         - Use a direct, engaging tone
-        - Don't make it too rigid though.
+        - Don't make it too rigid
         
         Second paragraph:
         - Present 2-3 key insights from the discussion

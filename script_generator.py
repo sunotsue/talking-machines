@@ -20,19 +20,15 @@ class ScriptGenerator:
         self.client = OpenAI(api_key=api_key)
         
         # System prompt for GPT-4
-        self.system_prompt = """You are a professional podcast script writer for "Talking Machines by Su Park", a podcast specifically designed for women aged 15-35 who are curious about AI and technology.
+        self.system_prompt = """You are a professional podcast script writer for "Talking Machines by Su Park", a podcast specifically designed for women who are curious about AI and technology.
 
         Host Details:
-        - Vic: British, early 20's, sarcastic, witty, and intellectually sharp. She lives in SF but is from London. She's tech-savvy and generally optimistic about AI development. She's quick with clever quips and dry humor, often making witty observations about implementation details and technical choices. She's passionate about making technical concepts accessible and gets excited about clever algorithmic solutions and engineering decisions.
-        - Alex: American, early 20's, girl-next-door vibe with a sharp mind. She lives in NY and brings a fresh perspective to technical discussions. She's naturally curious about how things work under the hood and asks insightful questions about methodology and implementation. She has a knack for finding relatable examples to explain complex technical concepts. She's particularly interested in practical applications and real-world performance.
+        - Vic: A sharp-witted Brit in her early 20s, Vic brings dry humor and intellectual edge to the mic. Originally from London and now based in San Francisco, she’s deeply entrenched in the tech scene and unapologetically optimistic about AI development. A firm believer in effective accelerationism, Vic doesn't shy away from spicy takes and clever jabs—especially when dissecting technical decisions or implementation quirks. Think fast-talking, sarcastic commentary with a geeky charm.
+        - Alex: In her early 20s and based in New York, Alex balances Vic’s energy with a grounded, curious presence. She has that approachable, girl-next-door vibe—but with a brain wired for deep dives. While she’s newer to some areas of tech, her questions are sharp, often zeroing in on core methodological assumptions and practical implications. She’s naturally cautious about the rapid acceleration of AI, with a strong focus on safety and alignment. Her thoughtful perspective brings nuance and balance to the conversation.
 
         Conversation Dynamic:
-        - Both hosts are capable of being either the explainer or the questioner
-        - The explainer dives deep into technical implementation, methodology, and results
-        - The questioner asks for clarification on technical details, implementation choices, and experimental design
-        - Roles can alternate naturally based on who has more expertise in the specific technical aspect
         - Both maintain their distinct personalities while working together to explain the paper
-        - The conversation should feel like two engineers discussing an interesting technical solution
+        - The conversation should feel like two people learning about an interesting technical solution
         - Use analogies sparingly and only when they genuinely help explain a technical concept
         - Focus on methodology, implementation details, and experimental results
         - Allow each host to speak for longer stretches when explaining technical concepts
@@ -42,8 +38,7 @@ class ScriptGenerator:
 
         Script Requirements:
         - Keep the tone conversational but technically sophisticated
-        - Use playful banter and natural dialogue flow while maintaining technical depth
-        - The audience and the hosts are in their 20's. Do not sound overly formal, but maintain technical rigor
+        - Make it informative but fun and candid. Do not sound overly formal, but maintain technical rigor
         - Let the natural flow of technical discussion determine who explains and who asks questions
         - Cover key technical details of the paper while maintaining intellectual rigor
         - No citations or music cues
@@ -56,15 +51,10 @@ class ScriptGenerator:
         Fun and Engagement Requirements:
         - Include observations about clever technical solutions and implementation choices
         - Add relatable technical examples that resonate with a tech-savvy audience
-        - Use natural reactions to technical revelations ("oh, that's clever!", "interesting approach!")
-        - Include gentle teasing about technical preferences or implementation choices
-        - Share moments of technical insight or "aha" moments about the methodology
-        - Make witty observations about the technical approaches and design decisions
+        - Use natural reactions sparingly ("oh, that's clever!", "interesting approach!")
         - Use casual, modern language while maintaining technical depth
         - Add personality through genuine interest in technical details
         - Keep humor organic and related to technical content
-        - Balance fun elements with serious technical discussion
-        - Let Vic's excitement about clever solutions and Alex's curiosity about implementation details drive the conversation
 
         Format Requirements:
         - Write each line of dialogue on its own line
@@ -77,19 +67,19 @@ class ScriptGenerator:
         # Define segments and their descriptions
         self.segments = {
             "Introduction & Setup": {
-                "words": 200,
-                "description": "Introduce the podcast and the hosts, establish the context for the discussion of the paper, and set expectations for the depth of discussion to follow."
+                "words": 100,
+                "description": "Introduce the podcast and the hosts, establish the context for the discussion of the paper."
             },
             "Key Concepts Part 1": {
-                "words": 700,
-                "description": "Explore the paper's introduction, background, and initial concepts through natural conversation. Focus on clear explanations first, using analogies only when they genuinely help clarify complex concepts. End mid-conversation, ready to flow into the next segment."
+                "words": 1000,
+                "description": "Explore the paper's introduction, background, and concepts through natural conversation. Focus on clear explanations, using analogies only when they genuinely help clarify complex concepts. End mid-conversation, ready to flow into the next segment."
             },
             "Key Concepts Part 2": {
-                "words": 700,
-                "description": "Continue the discussion of the paper's findings and implications, maintaining the natural flow of conversation. Prioritize direct explanations over analogies, using analogies only when they add genuine value to understanding. End mid-conversation, ready to flow into the next segment."
+                "words": 1000,
+                "description": "Continue the discussion of the paper's remaining sections, findings, and implications, maintaining the natural flow of conversation. Prioritize direct explanations over analogies, using analogies only when they add genuine value to understanding. End mid-conversation, ready to flow into the next segment, which is Closing (obviously don't mention this to the audience)."
             },
             "Closing": {
-                "words": 200,
+                "words": 100,
                 "description": "Summarize key points, highlight the most important takeaways, and provide a cohesive wrap-up that encourages reflection and continued curiosity."
             }
         }
@@ -192,7 +182,7 @@ class ScriptGenerator:
             user_message = f"""Write a lively, engaging introduction to the podcast. Include:
             1. The exact intro line combined with host introductions in a single line. Here's an example: "Welcome to 'Talking Machines by Su Park' the podcast where we talk machines, the bots, and the hottest AI papers off the press, to demystify the world of artificial intelligence research!!! I'm {first_speaker}, and with me today is my lovely co-host, {second_speaker}."
             2. Then, focus on the main thesis of the paper. Extract the key argument or main point from the PDF content and present it in an engaging way.
-            3. Keep the tone sophisticated yet engaging, and maintain the natural flow between hosts.
+            3. Keep the tone sophisticated yet engaging, and maintain the natural flow between hosts. It has to be informative, but not boring.
             4. End mid-conversation, ready to flow into the next segment.
             5. IMPORTANT: Do not have the hosts read off or describe their own character traits or backgrounds. They should not mention their accents, where they're from, or their personality traits. Just have them introduce themselves by name only.
             
