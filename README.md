@@ -1,34 +1,38 @@
 # 🎙️ Talking Machines by Su Park
-
-An automated podcast creation pipeline that uses AI to turn written content into natural, engaging podcast episodes — from script to voice.
+An automated podcast creation pipeline that transforms academic AI papers into engaging, conversational podcast episodes — from PDF to audio.
 
 ## 🌐 Listen now
-
 * [Spotify](https://open.spotify.com/show/35IuQwu17BwEUC9h24Yn8l?si=5135ad257ecb4683&nd=1&dlsi=99c6dafc50a24054)
 * [Apple Podcasts](https://podcasts.apple.com/us/podcast/talking-machines-by-su-park/id1805363038)
 * [YouTube](https://www.youtube.com/@talkingmachinespod)
 
 ## 🧠 Overview
-
-Talking Machines combines large language models and realistic text-to-speech to automate the creation of podcast episodes. Given a topic or document, it generates a two-person conversational script and produces a studio-quality MP3.
+Talking Machines combines GPT-4 and ElevenLabs text-to-speech to automatically create podcast episodes from academic papers. The pipeline generates natural two-host conversations between Vic and Alex, discussing AI research in an accessible, engaging format.
 
 ## ⚙️ Workflow
+The pipeline consists of three automated steps:
 
-1. **Script Generation — GPT-4o-mini**
-   * Ingests a user prompt and optional PDF document.
-   * Analyzes, summarizes, and transforms content into a dialogue-style podcast script.
-   * Structures content for two hosts, ensuring tone, pacing, and engagement.
+1. **Script Generation (`generate_script.py`)** — GPT-4o-mini
+   * Reads an academic PDF from the `pdfs/` directory
+   * Generates a 4-segment conversational script (~2,200 words total)
+   * Creates natural dialogue between two distinct hosts (Vic and Alex)
+   * Outputs: `scripts/[pdf_name]_[first_speaker]_first.txt`
 
-2. **Audio Synthesis — ElevenLabs API**
-   * Converts the generated script into lifelike audio.
-   * Supports two distinct voices for natural back-and-forth rhythm.
-   * Outputs a single MP3 episode with balanced intonation and conversational flow.
+2. **Metadata Generation (`generate_metadata.py`)** — GPT-4o-mini
+   * Analyzes the generated script
+   * Creates a catchy episode title and 2-paragraph description
+   * Outputs: `metadata/[script_name]_metadata.txt`
+
+3. **Audio Synthesis (`generate_audio.py`)** — ElevenLabs API
+   * Converts the script into lifelike audio using two distinct voices
+   * Alternates speakers based on script structure
+   * Outputs: `audio/[script_name].mp3`
 
 ## 🧩 Requirements
-
-* OpenAI API key
+* Python 3.9+
+* OpenAI API key (GPT-4o-mini access)
 * ElevenLabs API key
-* Python 3.9+ environment with dependencies from `requirements.txt`
+* Dependencies listed in `requirements.txt`
 
 ## 🚀 Setup
 ```bash
@@ -36,43 +40,60 @@ Talking Machines combines large language models and realistic text-to-speech to 
 git clone https://github.com/yourusername/talking-machines.git
 cd talking-machines
 
-# 2. Make setup script executable
-chmod +x setup.sh
+# 2. Install dependencies
+pip install -r requirements.txt
 
-# 3. Run setup
-./setup.sh
+# 3. Create required directories
+mkdir -p pdfs scripts metadata audio
 
-# 4. Configure environment
-echo "OPENAI_API_KEY=your_openai_api_key_here" >> .env
+# 4. Configure environment variables
+echo "OPENAI_API_KEY=your_openai_api_key_here" > .env
 echo "ELEVENLABS_API_KEY=your_elevenlabs_api_key_here" >> .env
 ```
 
 ## ▶️ Usage
 
-1. **Prepare inputs**
-   * A concise prompt describing your desired topic.
-   * An optional PDF document (e.g., paper, report, or essay).
+### Step 1: Prepare Your Paper
+Place **one** PDF file in the `pdfs/` directory:
+```bash
+cp your_paper.pdf pdfs/
+```
 
-2. **Generate the script**
+### Step 2: Generate the Script
 ```bash
 python generate_script.py
 ```
+Output: `scripts/[paper_name]_[Vic|Alex]_first.txt`
 
-3. **Review the script** (optional edits).
+### Step 3: Generate Episode Metadata
+```bash
+python generate_metadata.py
+```
+Output: `metadata/[paper_name]_metadata.txt`
 
-4. **Produce the audio**
+### Step 4: Generate Audio
 ```bash
 python generate_audio.py
 ```
+Output: `audio/[paper_name].mp3`
 
-5. Find your final MP3 in the `output/` directory.
+## 📦 Output Files
+* 📝 **Script**: `scripts/[paper_name]_[first_speaker]_first.txt` — Conversational dialogue between Vic and Alex
+* 📋 **Metadata**: `metadata/[paper_name]_metadata.txt` — Episode title and description
+* 🎧 **Audio**: `audio/[paper_name].mp3` — Final podcast episode (MP3, 44.1kHz, 128kbps)
 
-## 📦 Output
+## 🎭 Podcast Hosts
+* **Vic**: Sharp-witted British host in her early 20s, San Francisco-based, optimistic about AI development with dry humor
+* **Alex**: Grounded New York-based host in her early 20s, safety-focused with thoughtful questions and practical perspective
 
-* 📝 `podcast_script.txt` — AI-generated conversational script.
-* 🎧 `episode_final.mp3` — Completed podcast episode ready for upload.
+## 🪄 Features
+* Automated script segmentation (Introduction, Key Concepts Part 1 & 2, Closing)
+* Natural speaker alternation with no manual intervention required
+* Professional audio quality using ElevenLabs multilingual v2 voices
+* Consistent branding and closing message across episodes
 
-## 🪄 Notes
-
-* Customization of voices, pacing, and tone via `config.json` is planned.
-* Integrations for episode publishing (e.g., YouTube/Spotify upload) are planned.
+## 📝 Notes
+* Each script processes **one** PDF at a time — ensure only one file exists in `pdfs/` directory
+* Script generation uses ~3-second delays between segments to avoid rate limits
+* Total processing time: ~5-10 minutes per episode (depending on paper length)
+* Voice IDs are configurable in `generate_audio.py` if you want different ElevenLabs voices
