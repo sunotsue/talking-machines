@@ -1,4 +1,4 @@
-# 🎙️ Talking Machines by Su Park
+===========# 🎙️ Talking Machines by Su Park
 
 An automated podcast creation pipeline that transforms academic AI papers into engaging, conversational podcast episodes — from PDF to audio.
 
@@ -145,9 +145,3 @@ Output: `audio/[paper_name].mp3`
 * Script generation uses ~3-second delays between segments to avoid rate limits
 * Total processing time: ~5-10 minutes per episode (depending on paper length)
 * Voice IDs are configurable in `generate_audio.py` if you want different ElevenLabs voices
-
-## 🔒 Security
-
-* **Never commit `.env` to version control** — it contains your API keys
-* `.env` is already in `.gitignore` to prevent accidental commits
-* Use `.env.example` as a template for required environment variables
