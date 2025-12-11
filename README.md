@@ -1,4 +1,4 @@
-# 🎙️ Talking Machines Pod
+# 🎙️ Talking Machines
 
 An automated podcast creation pipeline that uses AI to turn written content into natural, engaging podcast episodes — from script to voice.
 
@@ -10,7 +10,7 @@ An automated podcast creation pipeline that uses AI to turn written content into
 
 ## 🧠 Overview
 
-Talking Machines Pod combines large language models and realistic text-to-speech to automate the creation of podcast episodes. Given a topic or document, it generates a two-person conversational script and produces a studio-quality MP3.
+Talking Machines combines large language models and realistic text-to-speech to automate the creation of podcast episodes. Given a topic or document, it generates a two-person conversational script and produces a studio-quality MP3.
 
 ## ⚙️ Workflow
 
