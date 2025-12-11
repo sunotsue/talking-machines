@@ -1,19 +1,22 @@
 #!/bin/bash
 
-# Create and activate conda environment
+# Create conda environment
 conda create -n talking-machines python=3.10 -y
-conda activate talking-machines
 
-# Install packages using conda
-conda install -c conda-forge python-dotenv pypdf2 -y
-
-# Install packages using pip
-pip install openai==1.12.0 elevenlabs==0.2.27
+# Install packages from requirements.txt
+conda run -n talking-machines pip install -r requirements.txt
 
 # Create necessary directories
 mkdir -p pdfs
 
 # Copy environment file template
-cp .env.example .env
+if [ -f .env.example ]; then
+    cp .env.example .env
+    echo "Created .env file - don't forget to add your API keys!"
+else
+    echo "Warning: .env.example not found"
+fi
 
-echo "Setup complete! Don't forget to edit .env with your API keys." 
+echo ""
+echo "Setup complete!"
+echo "Activate the environment with: conda activate talking-machines"
