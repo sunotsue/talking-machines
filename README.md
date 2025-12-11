@@ -1,4 +1,4 @@
-# 🎙️ Talking Machines
+# 🎙️ Talking Machines by Su Park
 
 An automated podcast creation pipeline that uses AI to turn written content into natural, engaging podcast episodes — from script to voice.
 
@@ -33,8 +33,8 @@ Talking Machines combines large language models and realistic text-to-speech to 
 ## 🚀 Setup
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/talking-machines-pod.git
-cd talking-machines-pod
+git clone https://github.com/yourusername/talking-machines.git
+cd talking-machines
 
 # 2. Make setup script executable
 chmod +x setup.sh
