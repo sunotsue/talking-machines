@@ -4,9 +4,9 @@ An automated podcast creation pipeline that uses AI to turn written content into
 
 ## 🌐 Listen now
 
-* [Spotify](#)
-* [Apple Podcasts](#)
-* [YouTube](#)
+* [Spotify](#https://open.spotify.com/show/35IuQwu17BwEUC9h24Yn8l?si=5135ad257ecb4683&nd=1&dlsi=99c6dafc50a24054)
+* [Apple Podcasts](#https://podcasts.apple.com/us/podcast/talking-machines-by-su-park/id1805363038)
+* [YouTube](#https://www.youtube.com/@talkingmachinespod)
 
 ## 🧠 Overview
 
