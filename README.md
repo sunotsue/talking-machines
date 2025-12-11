@@ -74,5 +74,5 @@ python generate_audio.py
 
 ## 🪄 Notes
 
-* Voices, pacing, and tone can be customized via `config.json`.
+* Customization of voices, pacing, and tone via `config.json` is planned.
 * Integrations for episode publishing (e.g., YouTube/Spotify upload) are planned.
