@@ -37,7 +37,7 @@ The pipeline consists of three automated steps:
 ## 🚀 Setup
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/talking-machines.git
+git clone https://github.com/sunotsue/talking-machines.git
 cd talking-machines
 
 # 2. Install dependencies
