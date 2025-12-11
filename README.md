@@ -1,4 +1,4 @@
-===========# 🎙️ Talking Machines by Su Park
+# 🎙️ Talking Machines by Su Park
 
 An automated podcast creation pipeline that transforms academic AI papers into engaging, conversational podcast episodes — from PDF to audio.
 
