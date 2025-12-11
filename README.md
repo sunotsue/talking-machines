@@ -2,7 +2,7 @@
 
 An automated podcast creation pipeline that transforms academic AI papers into engaging, conversational podcast episodes — from PDF to audio.
 
-(images/pod_cover.png)
+![](images/pod_cover.png)
 
 ## 🌐 Listen now
 
