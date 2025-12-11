@@ -1,49 +1,78 @@
-# talking-machines-pod
+# 🎙️ Talking Machines Pod
 
-An automated podcast creation workflow that leverages AI to generate engaging podcast content and convert it into natural-sounding audio.
+An automated podcast creation pipeline that uses AI to turn written content into natural, engaging podcast episodes — from script to voice.
 
-## Workflow Overview
+## 🌐 Listen now
 
-### 1. Script Generation (GPT-4o-mini)
-- Takes a user-provided prompt and PDF document as input
-- Uses GPT-4o-mini model to analyze the content and generate a natural podcast script
-- The script is structured for a two-person conversation format
-- Ensures engaging and coherent dialogue between hosts
+* [Spotify](#)
+* [Apple Podcasts](#)
+* [YouTube](#)
 
-### 2. Audio Generation (ElevenLabs API)
-- Converts the generated script into high-quality audio
-- Supports two distinct voice IDs for a natural podcast conversation
-- Generates an MP3 file with the complete podcast episode
-- Maintains natural intonation and conversation flow
+## 🧠 Overview
 
-## Requirements
-- OpenAI API key
-- ElevenLabs API key
-- Python environment with required dependencies
+Talking Machines Pod combines large language models and realistic text-to-speech to automate the creation of podcast episodes. Given a topic or document, it generates a two-person conversational script and produces a studio-quality MP3.
 
-## Setup
-1. Clone the repository
-2. Make the setup script executable:
-   ```bash
-   chmod +x setup.sh
-   ```
-3. Run the setup script:
-   ```bash
-   ./setup.sh
-   ```
-4. Edit the `.env` file with your API keys:
-   ```
-   OPENAI_API_KEY=your_openai_api_key_here
-   ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
-   ```
+## ⚙️ Workflow
 
-## Usage
-1. Prepare your prompt and PDF document
-2. Run the script generation process
-3. Review and adjust the generated script if needed
-4. Generate the final podcast audio
-5. Export the MP3 file
+1. **Script Generation — GPT-4o-mini**
+   * Ingests a user prompt and optional PDF document.
+   * Analyzes, summarizes, and transforms content into a dialogue-style podcast script.
+   * Structures content for two hosts, ensuring tone, pacing, and engagement.
 
-## Output
-- Generated podcast script in text format
-- Final podcast episode in MP3 format
+2. **Audio Synthesis — ElevenLabs API**
+   * Converts the generated script into lifelike audio.
+   * Supports two distinct voices for natural back-and-forth rhythm.
+   * Outputs a single MP3 episode with balanced intonation and conversational flow.
+
+## 🧩 Requirements
+
+* OpenAI API key
+* ElevenLabs API key
+* Python 3.9+ environment with dependencies from `requirements.txt`
+
+## 🚀 Setup
+```bash
+# 1. Clone the repository
+git clone https://github.com/yourusername/talking-machines-pod.git
+cd talking-machines-pod
+
+# 2. Make setup script executable
+chmod +x setup.sh
+
+# 3. Run setup
+./setup.sh
+
+# 4. Configure environment
+echo "OPENAI_API_KEY=your_openai_api_key_here" >> .env
+echo "ELEVENLABS_API_KEY=your_elevenlabs_api_key_here" >> .env
+```
+
+## ▶️ Usage
+
+1. **Prepare inputs**
+   * A concise prompt describing your desired topic.
+   * An optional PDF document (e.g., paper, report, or essay).
+
+2. **Generate the script**
+```bash
+python generate_script.py
+```
+
+3. **Review the script** (optional edits).
+
+4. **Produce the audio**
+```bash
+python generate_audio.py
+```
+
+5. Find your final MP3 in the `output/` directory.
+
+## 📦 Output
+
+* 📝 `podcast_script.txt` — AI-generated conversational script.
+* 🎧 `episode_final.mp3` — Completed podcast episode ready for upload.
+
+## 🪄 Notes
+
+* Voices, pacing, and tone can be customized via `config.json`.
+* Integrations for episode publishing (e.g., YouTube/Spotify upload) are planned.
